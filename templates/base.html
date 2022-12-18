@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+    <title>Pogen: Poetry Generator</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fadein.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+<body>
+    <div class = "container">
+    <div class="row justify-content-center">
+    <hr class="mt-4 mb-4">
+    {% include "header.html" %}
+    <hr class="mt-4 mb-4">
+
+    {% block content %}{% endblock %}
+
+    <hr class="mt-4 mb-4">
+    {% include "footer.html" %}
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>
+    <div class = "fade-in">
+    {% for line in poem %}
+        {{line}}<br />
+    {% endfor %}
+    </div>
+
+</p>
+
+<a class = "btn btn-success btn-block" href = "{% url 'home' %}">Generate new poem</a>
+
+{% endblock %}
