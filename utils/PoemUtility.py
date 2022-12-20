@@ -32,7 +32,7 @@ class PoemUtility:
         tk = RegexpTokenizer("[\\w+']+|[^\\w\\s]+")
         try:
             matrix = []
-            with open ('../CSVs/'+filename, 'r') as csvfile:
+            with open ('CSVs/'+filename, 'r') as csvfile:
                 csv_reader = csv.reader(csvfile)
                 for line in csv_reader:
                     poem_sentence = line[0]
@@ -47,7 +47,7 @@ class PoemUtility:
     @staticmethod
     def classifyPoems(filename):
         try:
-            with open('../CSVs/'+filename, 'r') as fp:
+            with open('CSVs/'+filename, 'r') as fp:
                 print('opened ' + filename )
                 global cl
                 cl = NaiveBayesClassifier(fp, format="csv")
