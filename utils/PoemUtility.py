@@ -20,7 +20,7 @@ import django
 import csv
 import nltk
 from nltk.tokenize import word_tokenize
-from nltk.tokenize import RegexpTokenizer 
+from nltk.tokenize import RegexpTokenizer
 from textblob import TextBlob
 from .classifiers import NaiveBayesClassifier
 
@@ -42,19 +42,19 @@ class PoemUtility:
             return matrix
         except IOError:
             print ('\nFile not found in tokenize() method')
-    
-    
+
+
     @staticmethod
     def classifyPoems(filename):
         try:
-            with open('CSVs/'+filename, 'r') as fp:
+            with open('../CSVs/'+filename, 'r') as fp:
                 print('opened ' + filename )
                 global cl
                 cl = NaiveBayesClassifier(fp, format="csv")
                 print(cl)
         except IOError:
             print('\nFile not found for Naive-Bayes Classifier')
-            
+
 
     @staticmethod
     def classifySentence(sentence, category):
@@ -75,8 +75,7 @@ def removePunctuation(my_str):
             no_punct = no_punct + " "
         if char not in punctuations:
             no_punct = no_punct + char
-            
+
     # display the unpunctuated string
     #print(no_punct)
-    return no_punct           
-        
+    return no_punct

@@ -19,6 +19,7 @@ class MarkovMatrix:
         self.corpus = corpus
         self.state_size = state_size
         self.matrix = {}
+        
         if matrix:
             self.matrix = matrix
         else:
