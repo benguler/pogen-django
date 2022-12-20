@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form method = "POST"  action = {% url 'poem' %} > 
+    <form method = "POST"  action = {% url 'poem' %} >
         {% csrf_token %}
 
-        <div class = "row">
+        <div class = "row spacer">
             <div class="col-6">
             {{form.genre | as_crispy_field}}
             </div>
@@ -15,9 +15,8 @@
             {{form.syls | as_crispy_field}}
             </div>
         </div>
-        <br />
-        
-        <div class = "row">
+
+        <div class = "row spacer">
             <input type = "submit" class="btn btn-success btn-full btn-block" value = "Generate" />
         </div>
 

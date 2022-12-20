@@ -1,0 +1,21 @@
+html * {
+  font-family: 'Alegreya' !importnant;
+
+}
+
+body {
+  background-color: #ffebcd;
+  font-family: 'Alegreya';
+
+}
+
+.spacer{
+  padding-top: 25px;
+  padding-bottom: 25px;
+
+}
+
+.title{
+  text-align: center;
+
+}

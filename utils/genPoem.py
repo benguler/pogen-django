@@ -11,13 +11,14 @@ def genPoem(genre, strSyls):
 
     syls = []
     syl = ""
-    
+
     digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
+    #Get syylable count
     for i in range (len(strSyls)):
         c = strSyls[i]
 
-        if c == '-':
+        if c == '-' and len(syl) != 0:
             syls += [int(syl)]
             syl = ""
 
@@ -25,9 +26,8 @@ def genPoem(genre, strSyls):
             syl += c
 
         if i == len(strSyls) - 1 and len(syl) != 0:
+
             syls += [int(syl)]
 
-    poeminstance = Poem(matrix, syls, category, True)
+    poeminstance = Poem(matrix, syls, category, True)   #return poem instance with retrieved syllable count
     return poeminstance.generatePoem()
-    
-    

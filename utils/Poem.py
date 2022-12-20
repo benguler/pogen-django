@@ -17,6 +17,7 @@ class Poem:
         self.sBool = sBool  # True for explicit syllable count (line must have exactly n syllables) false for maximum syllable count (line may have at most n syllables)
 
     def generatePoem(self):
+
         # Generate poem given specifications in constructor
         agent = MarkovAgent(self.markovMatrix, self.genSeed())  # Create agent with poem seed as initial state
         poem = ""
@@ -25,61 +26,64 @@ class Poem:
 
         # For each line of the poem
         for syln in self.numSyls:
-            score = 0
+            line = ""
 
-            minscore = 0.7
-            iterations = 0
-            # Generate line for poem and run nb classification until nb score is enough
-            while (score < minscore):
-                line = ""
+            if (syln != 0):
+                score = 0
 
-                sylCount = 0
+                minscore = 0.7
+                iterations = 0
+                # Generate line for poem and run nb classification until nb score is enough
+                while (score < minscore):
+                    line = ""
 
-                # Add initial state to poem (the seed), minus the last word of that state
-                for i in range(agent.stateSize - 1):
-                    line += agent.getState()[i] + " "
-                    sylCount += syllables.estimate(agent.getState()[i])
+                    sylCount = 0
 
-                # Generate line with roughly correct number of syllables
-                # agent.getLastWord() == END) implies line is finished
+                    # Add initial state to poem (the seed), minus the last word of that state
+                    for i in range(agent.stateSize - 1):
+                        line += agent.getState()[i] + " "
+                        sylCount += syllables.estimate(agent.getState()[i])
 
-                # Runs while sylcount is not equal to required syllable count for line (or when sylcount is not <= syllable count when sBool is false) and end of line has not been reached
-                # Lines must go from BEGIN to END
-                while (not ((sylCount == syln if self.sBool else sylCount <= syln) and agent.getLastWord() == END)):
-                    if (sylCount > syln or (
-                    agent.getLastWord() == END if self.sBool else False)):  # If number of syllables has been surpassed or finished line has too few syllables (only when syllables count has no min, i.e sBool = false)
-                        # Restart with new line with new seed
-                        agent.setState(self.genSeed())
+                    # Generate line with roughly correct number of syllables
+                    # agent.getLastWord() == END) implies line is finished
 
-                        line = ""
+                    # Runs while sylcount is not equal to required syllable count for line (or when sylcount is not <= syllable count when sBool is false) and end of line has not been reached
+                    # Lines must go from BEGIN to END
+                    while (not ((sylCount == syln if self.sBool else sylCount <= syln) and agent.getLastWord() == END)):
+                        if (sylCount > syln or (
+                        agent.getLastWord() == END if self.sBool else False)):  # If number of syllables has been surpassed or finished line has too few syllables (only when syllables count has no min, i.e sBool = false)
+                            # Restart with new line with new seed
+                            agent.setState(self.genSeed())
 
-                        sylCount = 0
+                            line = ""
 
-                        for i in range(agent.stateSize - 1):
-                            line += agent.getState()[i] + " "
-                            sylCount += syllables.estimate(agent.getState()[i])
+                            sylCount = 0
 
-                    line += agent.getLastWord() + " "  # Add the last word of the agent's current state to the line
-                    sylCount += syllables.estimate(agent.getLastWord())  # Update overall syllable count
+                            for i in range(agent.stateSize - 1):
+                                line += agent.getState()[i] + " "
+                                sylCount += syllables.estimate(agent.getState()[i])
 
-                    agent.transition()  # Have the agent transition to a new state
+                        line += agent.getLastWord() + " "  # Add the last word of the agent's current state to the line
+                        sylCount += syllables.estimate(agent.getLastWord())  # Update overall syllable count
 
-                if (line not in prevLines):
-                    score = self.nbDist(line)
-                   
-                    prevLines += [line]
+                        agent.transition()  # Have the agent transition to a new state
 
-                else:
-                    score = 0
-                    
-                agent.setState(self.genSeed())  # Initialize agent state to new seed for next line/round of nb classification
+                    if (line not in prevLines):
+                        score = self.nbDist(line)
 
-                
-                iterations += 1
-                if(iterations > 10):
-                    if minscore >= 0.3:
-                        minscore -= 0.1
-                    iterations = 0
+                        prevLines += [line]
+
+                    else:
+                        score = 0
+
+                    agent.setState(self.genSeed())  # Initialize agent state to new seed for next line/round of nb classification
+
+
+                    iterations += 1
+                    if(iterations > 10):
+                        if minscore >= 0.3:
+                            minscore -= 0.1
+                        iterations = 0
 
             lines += [line]
 
