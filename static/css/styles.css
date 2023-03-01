@@ -30,6 +30,21 @@ body {
 
 }
 
+.orange-background:focus{
+  background-color: #BB6C19;
+
+}
+
+.orange-background:visited{
+  background-color: #BB6C19;
+
+}
+
+.orange-background:active {
+  background-color: #BB6C19;
+
+}
+
 .fade-in {
     animation: fadeIn ease 3s;
 
