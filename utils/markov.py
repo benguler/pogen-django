@@ -16,14 +16,14 @@ class MarkovMatrix:
         :param state_size: The number of items the matrix keeps track of.
         :param matrix: Optional pre-existing probability matrix
         """
-        self.corpus = corpus
-        self.state_size = state_size
-        self.matrix = {}
-        
+        self.corpus = corpus;
+        self.state_size = state_size;
+        self.matrix = {};
+
         if matrix:
-            self.matrix = matrix
+            self.matrix = matrix;
         else:
-            self.train(corpus, state_size)
+            self.train(corpus, state_size);
 
     def train(self, corpus, state_size):
         """
@@ -36,31 +36,31 @@ class MarkovMatrix:
         Ex. ('Farewell', 'dear'): {'mate,': 1}
         """
         for token in self.corpus:
-            key = ([BEGIN] * state_size) + token + [END]
+            key = ([BEGIN] * state_size) + token + [END];
             for i in range(len(token) + 1):
-                state = tuple(key[i:i + state_size])
-                follow = key[i + state_size]
+                state = tuple(key[i:i + state_size]);
+                follow = key[i + state_size];
                 if state not in self.matrix:
-                    self.matrix[state] = {}
+                    self.matrix[state] = {};
 
                 if follow not in self.matrix[state]:
-                    self.matrix[state][follow] = 0
+                    self.matrix[state][follow] = 0;
 
-                self.matrix[state][follow] += 1
+                self.matrix[state][follow] += 1;
 
     def move(self, state):
         """
         :param state: The current state
         :return: The next random word
         """
-        freqdict = self.matrix.get(state)
+        freqdict = self.matrix.get(state);
         if freqdict is None:
-            return END
-        choices = list(freqdict.keys())
-        freq = list(freqdict.values())
-        freqlist = random.choices(choices, weights=freq, k=sum(freq))
+            return END;
+        choices = list(freqdict.keys());
+        freq = list(freqdict.values());
+        freqlist = random.choices(choices, weights=freq, k=sum(freq));
 
-        return random.choice(freqlist)
+        return random.choice(freqlist);
 
     def gen(self, init_state=None, iteration=10):
         """
@@ -68,15 +68,15 @@ class MarkovMatrix:
         :param iteration: How many times the generator yields. Setting this
         to a large number will likely force the generator to stop at ___END___
         """
-        state = init_state or (BEGIN,) * self.state_size
-        i = iteration
+        state = init_state or (BEGIN,) * self.state_size;
+        i = iteration;
         while i:
-            next_word = self.move(state)
+            next_word = self.move(state);
             if next_word == END:
-                break
-            yield next_word
-            state = tuple(state[1:]) + (next_word,)
-            i -= 1
+                break;
+            yield next_word;
+            state = tuple(state[1:]) + (next_word,);
+            i -= 1;
 
     def walk(self, init_state=None, iteration=10):
         """
@@ -84,24 +84,28 @@ class MarkovMatrix:
         starting with a naive BEGIN state, or the provided `init_state`
         (as a tuple).
         """
-        return list(self.gen(init_state, iteration))
+        return list(self.gen(init_state, iteration));
 
     def get_matrix(self):
-        return self.matrix
+        return self.matrix;
 
 
 class ReverseMarkovMatrix(MarkovMatrix):
+    """
+    Reverse markov matrix (ie [a] = b -> [b] = a).
+    Used for unimplemented rhyming feature.
+    """
     def train(self, corpus, state_size):
         for token in self.corpus:
-            token.reverse()
-            key = ([BEGIN] * state_size) + token + [END]
+            token.reverse();
+            key = ([BEGIN] * state_size) + token + [END];
             for i in range(len(token) + 1):
-                state = tuple(key[i:i + state_size])
-                follow = key[i + state_size]
+                state = tuple(key[i:i + state_size]);
+                follow = key[i + state_size];
                 if state not in self.matrix:
-                    self.matrix[state] = {}
+                    self.matrix[state] = {};
 
                 if follow not in self.matrix[state]:
-                    self.matrix[state][follow] = 0
+                    self.matrix[state][follow] = 0;
 
-                self.matrix[state][follow] += 1
+                self.matrix[state][follow] += 1;

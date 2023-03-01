@@ -16,66 +16,72 @@ This python script contains three important functionality
 
 """
 # need to install punkt manually by "nltk.download('punkt')"
-import django
-import csv
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.tokenize import RegexpTokenizer
-from textblob import TextBlob
-from .classifiers import NaiveBayesClassifier
+import django;
+import csv;
+import nltk;
+from nltk.tokenize import word_tokenize;
+from nltk.tokenize import RegexpTokenizer;
+from textblob import TextBlob;
+from .classifiers import NaiveBayesClassifier;
 
 
 class PoemUtility:
 
     @staticmethod
     def tokenize(filename):
-        tk = RegexpTokenizer("[\\w+']+|[^\\w\\s]+")
+        #Param file to be tokenized
+        #Retrieve each indivual word from each poem in a matrix format
+        tk = RegexpTokenizer("[\\w+']+|[^\\w\\s]+");
         try:
-            matrix = []
+            matrix = [];
             with open ('CSVs/'+filename, 'r') as csvfile:
-                csv_reader = csv.reader(csvfile)
+                csv_reader = csv.reader(csvfile);
                 for line in csv_reader:
-                    poem_sentence = line[0]
-                    poem_sentence = removePunctuation(poem_sentence)
-                    data = tk.tokenize(poem_sentence)
-                    matrix.append(data)
+                    poem_sentence = line[0];
+                    poem_sentence = removePunctuation(poem_sentence);
+                    data = tk.tokenize(poem_sentence);
+                    matrix.append(data);
+
             return matrix
+
         except IOError:
-            print ('\nFile not found in tokenize() method')
+            print ('\nFile not found in tokenize() method');
 
 
     @staticmethod
     def classifyPoems(filename):
+        #Param: file to be classified
+        #Catagorizes poem category (genre) using naive-beyes classifier
         try:
             with open('CSVs/'+filename, 'r') as fp:
-                print('opened ' + filename )
-                global cl
-                cl = NaiveBayesClassifier(fp, format="csv")
-                print(cl)
+                print('opened ' + filename );
+                global cl;
+                cl = NaiveBayesClassifier(fp, format="csv");
+                print(cl);
         except IOError:
-            print('\nFile not found for Naive-Bayes Classifier')
+            print('\nFile not found for Naive-Bayes Classifier');
 
 
     @staticmethod
     def classifySentence(sentence, category):
-        prob_dist = cl.prob_classify(sentence)
-        return round(prob_dist.prob(category),2)
+        prob_dist = cl.prob_classify(sentence);
+        return round(prob_dist.prob(category),2);
 
 
 def removePunctuation(my_str):
-    # define punctuation
-    punctuations = '''!()-[]{};:"\,<>./?@#$%^&*_~'''
+    #define punctuation
+    punctuations = '''!()-[]{};:"\,<>./?@#$%^&*_~''';
 
-    mydot = "."
+    mydot = ".";
 
-    # remove punctuation from the string
-    no_punct = ""
+    #remove punctuation from the string
+    no_punct = "";
     for char in my_str:
         if char == mydot:
-            no_punct = no_punct + " "
+            no_punct = no_punct + " ";
         if char not in punctuations:
-            no_punct = no_punct + char
+            no_punct = no_punct + char;
 
-    # display the unpunctuated string
+    #display the unpunctuated string
     #print(no_punct)
-    return no_punct
+    return no_punct;

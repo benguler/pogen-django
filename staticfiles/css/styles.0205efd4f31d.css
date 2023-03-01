@@ -21,13 +21,8 @@ body {
 }
 
 .orange-background {
-  background-color: #D58C3F;
-
-}
-
-.orange-background:hover {
-  background-color: #BB6C19;
-
+  background-color: #EFAE6B;
+  
 }
 
 .fade-in {

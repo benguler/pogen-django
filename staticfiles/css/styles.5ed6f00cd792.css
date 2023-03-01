@@ -1,5 +1,5 @@
 body {
-  background-color: #FBEFD7;
+  background-color: #F1E2C0;
   font-family: 'Alegreya';
 
 }
@@ -17,16 +17,6 @@ body {
 
 .title{
   text-align: center;
-
-}
-
-.orange-background {
-  background-color: #D58C3F;
-
-}
-
-.orange-background:hover {
-  background-color: #BB6C19;
 
 }
 

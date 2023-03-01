@@ -1,10 +1,5 @@
-html * {
-  font-family: 'Alegreya' !importnant;
-
-}
-
 body {
-  background-color: #ffebcd;
+  background-color: #FBEFD7;
   font-family: 'Alegreya';
 
 }
@@ -15,7 +10,39 @@ body {
 
 }
 
+.base{
+  width: 900px;
+
+}
+
 .title{
   text-align: center;
+
+}
+
+.orange-background {
+  background-color: #D58C3F;
+
+}
+
+.orange-background:hover {
+  background-color: #BB6C19;
+
+}
+
+.fade-in {
+    animation: fadeIn ease 3s;
+
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+
+    }
+    100% {
+        opacity: 1;
+
+    }
 
 }

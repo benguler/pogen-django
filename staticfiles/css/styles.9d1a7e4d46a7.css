@@ -1,5 +1,5 @@
 body {
-  background-color: #FBEFD7;
+  background-color: "#F0EEE1";
   font-family: 'Alegreya';
 
 }
@@ -11,22 +11,12 @@ body {
 }
 
 .base{
-  width: 900px;
+  width: 600px;
 
 }
 
 .title{
   text-align: center;
-
-}
-
-.orange-background {
-  background-color: #D58C3F;
-
-}
-
-.orange-background:hover {
-  background-color: #BB6C19;
 
 }
 

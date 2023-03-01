@@ -7,17 +7,21 @@
         {% csrf_token %}
 
         <div class = "row spacer">
-            <div class="col-6">
+            <div class="col-12">
             {{form.genre | as_crispy_field}}
             </div>
 
-            <div class="col-6">
+            <div class="col-12">&nbsp;</div>
+
+            <div class="col-12">
             {{form.syls | as_crispy_field}}
             </div>
+
         </div>
 
         <div class = "row spacer">
-            <input type = "submit" class="btn btn-success btn-full btn-block" value = "Generate" />
+            <input type = "submit" class="btn btn-success btn-full btn-block orange-background" value = "Generate Poem" />
+
         </div>
 
     </form>
