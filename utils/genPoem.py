@@ -19,7 +19,15 @@ def genPoem(genre, strSyls):
         c = strSyls[i];
 
         if c == '-' and len(syl) != 0:
-            syls += [int(syl)];
+            s = int(syl);
+
+            #Max 10 Syllables per line
+            if(s <= 10):
+                syls += [s];
+
+            else:
+                syls += [10];
+                
             syl = "";
 
         elif c in digits:
